@@ -1,7 +1,7 @@
 import React,{Component, useState} from 'react';
 import searchIcon from '../assets/icons/magnifying-glass-solid.svg';
 
-const Header = () => {
+const Navbar = () => {
   const [inputValue,setInputValue]=useState('');
   const [isCelsius,setIsCelsius]=useState(true)
 
@@ -26,4 +26,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Navbar

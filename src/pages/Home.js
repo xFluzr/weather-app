@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 
-import Header from '../components/Header';
+import Header from '../components/Navbar';
 import { fetchData, weatherFetchingOptions } from '../utils/api';
 
 const Home = () => {
@@ -23,7 +23,9 @@ const Home = () => {
 
   return (
     <div>
-        <Header/>
+        <Navbar/>
+        <TodaysWeather/>
+        <WeatherDetails/>
     </div>
   )
 }
