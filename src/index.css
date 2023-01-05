@@ -16,6 +16,15 @@ html{
     width: 100%;
 }
 
+#root{
+    height: 100vh;
+}
+.wrapper{
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 .font-main{
     font-family: var(--main-font);
 }
@@ -26,7 +35,7 @@ html{
 
 .selected-unit{
     color: #05a9f5;
-    font-weight: bold;
+    font-weight: 900;
 }
 
 input::placeholder{
