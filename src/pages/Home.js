@@ -10,7 +10,8 @@ const Home = () => {
   const [isCelsius,setIsCelsius]=useState(true);
   const [isLoading,setIsLoading]=useState(true);
   const [inputValue,setInputValue]=useState('');
-  const [weatherData,setWeatherData]=useState({});
+  const [weatherPresentData,setWeatherPresentData]=useState({});
+  const [weatherForecastData,setWeatherForecastData]=useState({});
 
   //Navbar Function
   const changeTemparuteHandler=()=>{
@@ -23,22 +24,30 @@ const Home = () => {
 
 
   useEffect(()=>{
-    const getData=async()=>{
+    const getRealTimeData=async()=>{
       const responseJson=await fetchData(`https://weatherapi-com.p.rapidapi.com/current.json?q=${'Warsaw'}`,weatherFetchingOptions);
       const data=await responseJson;
-      setWeatherData(data);
+      setWeatherPresentData(data);
       setIsLoading(false);
     }
-    getData()
+    const getForecastData=async()=>{
+      const responseJSON=await fetch(`https://weatherapi-com.p.rapidapi.com/forecast.json?q=${'Warsaw'}&days=1`,weatherFetchingOptions);
+      const forecastData=await responseJSON.json();
+      setWeatherForecastData(forecastData);
+      setIsLoading(false)
+    }
+
+    getRealTimeData().catch(console.error);
+    getForecastData().catch(console.error);
   },[]);
-  if(isLoading){
-    return <div>Loading</div>
+  if(isLoading || weatherPresentData.length===0){
+    return <div>Loading...</div>
   }
   return (
     <div className='flex flex-col gap-20 h-full'>
         <Navbar isCelsius={isCelsius} inputValue={inputValue} changeTemparuteHandler={changeTemparuteHandler} onChangeHandler={onChangeHandler}/>
-        <TodaysWeather weatherData={weatherData}/>
-        <WeatherDetails weatherData={weatherData}/>
+        <TodaysWeather weatherPresentData={weatherPresentData} weatherForecastData={weatherForecastData}/>
+        <WeatherDetails weatherPresentData={weatherPresentData}/>
     </div>
   )
 }
